@@ -10,11 +10,3 @@ const connectToDatabase = () => {
 };
 
 module.exports = connectToDatabase;
-
-// try {
-//   mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
-//   console.log("Database Connected:");
-// } catch (err) {
-//   console.log(err);
-//   process.exit(1);
-// }
