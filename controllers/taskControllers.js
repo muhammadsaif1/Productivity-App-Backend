@@ -28,4 +28,18 @@ const createTask = async (req, res) => {
   }
 };
 
-module.exports = { createTask };
+// @desc get all tasks
+// @ POST /api/fetchTasks
+// @ access public
+
+const fetchAllTasks = async (req, res) => {
+  try {
+    const tasks = await Task.find();
+    res.status(200).json({ success: true, data: tasks });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to fetch tasks" });
+  }
+};
+
+module.exports = { createTask, fetchAllTasks };

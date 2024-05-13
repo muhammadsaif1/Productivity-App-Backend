@@ -7,6 +7,7 @@ const tasksRouter = require("./routes/createTaskRoute");
 const errorHandler = require("./middleware/errorHandler");
 const connectToDatabase = require("./config/database");
 const corsMiddleware = require("./middleware/corsHandler");
+const fetchTasksRouter = require("./routes/fetchTasksRoute");
 
 connectToDatabase();
 
@@ -16,6 +17,7 @@ app.use(corsMiddleware);
 app.use(express.urlencoded({ extended: true }));
 
 app.use(tasksRouter);
+app.use(fetchTasksRouter);
 app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
