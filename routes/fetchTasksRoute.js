@@ -1,8 +1,12 @@
 const { Router } = require("express");
-const { fetchAllTasks } = require("../controllers/taskControllers");
+const {
+  fetchAllTasks,
+  fetchTaskById,
+} = require("../controllers/taskControllers");
 
-const fetchTasksRouter = Router();
+const tasksRouter = Router();
 
-fetchTasksRouter.get("/api/fetchTasks", fetchAllTasks);
+tasksRouter.get("/api/fetchTasks", fetchAllTasks);
+tasksRouter.get("/api/:id/fetchTask", fetchTaskById);
 
-module.exports = fetchTasksRouter;
+module.exports = tasksRouter;

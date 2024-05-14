@@ -42,4 +42,24 @@ const fetchAllTasks = async (req, res) => {
   }
 };
 
-module.exports = { createTask, fetchAllTasks };
+// @desc get a particular task with id
+// @ POST /api/:id/fetchTask
+// @ access public
+
+const fetchTaskById = async (req, res) => {
+  try {
+    const taskId = req.params.id;
+    const task = await Task.findById(taskId);
+    if (!task) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Task not found" });
+    }
+    res.status(200).json({ success: true, data: task });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, message: "Failed to fetch task" });
+  }
+};
+
+module.exports = { createTask, fetchAllTasks, fetchTaskById };
