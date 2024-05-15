@@ -3,11 +3,10 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 
-const tasksRouter = require("./routes/createTaskRoute");
+const tasksRouter = require("./routes/taskRoutes");
 const errorHandler = require("./middleware/errorHandler");
 const connectToDatabase = require("./config/database");
 const corsMiddleware = require("./middleware/corsHandler");
-const fetchTasksRouter = require("./routes/fetchTasksRoute");
 
 connectToDatabase();
 
@@ -17,9 +16,9 @@ app.use(corsMiddleware);
 app.use(express.urlencoded({ extended: true }));
 
 app.use(tasksRouter);
-app.use(fetchTasksRouter);
+// app.use(fetchTasksRouter);
 app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
-  console.log("THe server is running on port:3000");
+    console.log("THe server is running on port:3000");
 });
