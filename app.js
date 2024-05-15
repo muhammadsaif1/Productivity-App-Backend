@@ -16,9 +16,8 @@ app.use(corsMiddleware);
 app.use(express.urlencoded({ extended: true }));
 
 app.use(tasksRouter);
-// app.use(fetchTasksRouter);
 app.use(errorHandler);
 
 app.listen(process.env.PORT, () => {
-    console.log("THe server is running on port:3000");
+  console.log("THe server is running on port:3000");
 });
