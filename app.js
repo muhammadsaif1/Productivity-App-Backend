@@ -18,6 +18,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(tasksRouter);
 app.use(errorHandler);
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("THe server is running on port:3000");
 });

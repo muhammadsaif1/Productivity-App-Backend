@@ -1,4 +1,4 @@
-const Task = require("../models/Task");
+const Task = require("../models/task");
 // @desc create new task
 // @ POST /api/createTask
 // @ access public
