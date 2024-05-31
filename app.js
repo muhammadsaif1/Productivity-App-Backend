@@ -1,5 +1,6 @@
 require("dotenv").config();
 
+const cors = require("cors");
 const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
@@ -12,13 +13,15 @@ const corsMiddleware = require("./middleware/corsHandler");
 connectToDatabase();
 
 app.use(express.json());
-app.use(corsMiddleware);
+app.use(cors());
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(tasksRouter);
 app.use(errorHandler);
 
-app.listen(process.env.PORT || 3000, () => {
-  console.log("THe server is running on port:3000");
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+    console.log("THe server is running on port:3000");
 });
