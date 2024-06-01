@@ -12,10 +12,10 @@ const corsMiddleware = require("./middleware/corsHandler");
 
 connectToDatabase();
 
-app.use(corsMiddleware());
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 
 app.use(tasksRouter);
 
@@ -24,5 +24,5 @@ app.use(errorHandler);
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log(`THe server is running on port:${PORT}`);
+    console.log(`The server is running on port:${PORT}`);
 });
