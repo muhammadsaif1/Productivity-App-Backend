@@ -2,9 +2,7 @@ require("dotenv").config();
 
 const cors = require("cors");
 const express = require("express");
-const app = express();
 const bodyParser = require("body-parser");
-
 const tasksRouter = require("./routes/taskRoutes");
 const errorHandler = require("./middleware/errorHandler");
 const connectToDatabase = require("./config/database");
@@ -12,10 +10,12 @@ const corsMiddleware = require("./middleware/corsHandler");
 
 connectToDatabase();
 
+const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
+
+// app.use(bodyParser.json());
 
 app.use(tasksRouter);
 
