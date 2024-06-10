@@ -19,13 +19,11 @@ const createTask = async (req, res) => {
     });
     await newTask.save();
 
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: "Task created successfully",
-        data: newTask,
-      });
+    res.status(201).json({
+      success: true,
+      message: "Task created successfully",
+      data: newTask,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Failed to create task" });
@@ -109,9 +107,11 @@ const deleteTask = async (req, res) => {
         .status(404)
         .json({ success: false, message: "Task not found" });
     }
-    res
-      .status(200)
-      .json({ success: true, message: "Task deleted successfully" });
+    res.status(200).json({
+      success: true,
+      message: "Task deleted successfully",
+      data: deletedTask,
+    });
   } catch (error) {
     console.error(error);
     res.status(500).json({ success: false, message: "Failed to delete task" });
