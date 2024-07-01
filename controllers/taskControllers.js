@@ -74,6 +74,7 @@ const updateTask = async (req, res) => {
   try {
     const taskId = req.params.id;
     const { title, description, deadline } = req.body;
+    const createdAt = Date.now();
     const updatedTask = await Task.findByIdAndUpdate(
       taskId,
       { title, description, deadline, createdAt },
