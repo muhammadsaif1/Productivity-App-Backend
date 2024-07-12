@@ -7,6 +7,7 @@ const createTask = async (req, res) => {
   try {
     console.log(req.body);
     const { title, description, deadline } = req.body;
+    const userId = req.user.id;
     if (!title || !description || !deadline) {
       res
         .status(400)
@@ -16,6 +17,7 @@ const createTask = async (req, res) => {
       title,
       description,
       deadline,
+      userId,
     });
     await newTask.save();
 
@@ -36,8 +38,9 @@ const createTask = async (req, res) => {
 
 const fetchAllTasks = async (req, res) => {
   try {
-    // Good Job!
-    const tasks = await Task.find();
+    const userId = req.user.id;
+    const tasks = await Task.find({ userId });
+
     res.status(200).json({ success: true, data: tasks });
   } catch (error) {
     console.error(error);
@@ -51,9 +54,9 @@ const fetchAllTasks = async (req, res) => {
 
 const fetchTaskById = async (req, res) => {
   try {
-    // Good Job!
+    const userId = req.user.id;
     const taskId = req.params.id;
-    const task = await Task.findById(taskId);
+    const task = await Task.findById({ _id: taskId, userId });
     if (!task) {
       return res
         .status(404)
@@ -72,11 +75,13 @@ const fetchTaskById = async (req, res) => {
 
 const updateTask = async (req, res) => {
   try {
+    const userId = req.user.id;
+
     const taskId = req.params.id;
     const { title, description, deadline } = req.body;
     const createdAt = Date.now();
     const updatedTask = await Task.findByIdAndUpdate(
-      taskId,
+      { _id: taskId, userId },
       { title, description, deadline, createdAt },
       { new: true }
     );
@@ -100,8 +105,9 @@ const updateTask = async (req, res) => {
 
 const deleteTask = async (req, res) => {
   try {
+    const userId = req.user.id;
     const taskId = req.params.id;
-    const deletedTask = await Task.findByIdAndDelete(taskId);
+    const deletedTask = await Task.findByIdAndDelete({ _id: taskId, userId });
 
     if (!deletedTask) {
       return res

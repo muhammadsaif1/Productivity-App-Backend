@@ -6,12 +6,13 @@ const {
   fetchTaskById,
   deleteTask,
 } = require("../controllers/taskControllers");
+const authenticateUser = require("../middleware/authHandler");
 
 const tasksRouter = Router();
-tasksRouter.post("/api/createTask", createTask);
-tasksRouter.get("/api/fetchTasks", fetchAllTasks);
-tasksRouter.get("/api/fetchTask/:id", fetchTaskById);
-tasksRouter.put("/api/updateTask/:id", updateTask);
-tasksRouter.delete("/api/deleteTask/:id", deleteTask);
+tasksRouter.post("/api/createTask", authenticateUser, createTask);
+tasksRouter.get("/api/fetchTasks", authenticateUser, fetchAllTasks);
+tasksRouter.get("/api/fetchTask/:id", authenticateUser, fetchTaskById);
+tasksRouter.put("/api/updateTask/:id", authenticateUser, updateTask);
+tasksRouter.delete("/api/deleteTask/:id", authenticateUser, deleteTask);
 
 module.exports = tasksRouter;
