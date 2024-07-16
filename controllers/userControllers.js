@@ -13,16 +13,27 @@ const registerUser = async (req, res) => {
         message: "Unable to create new User all fields are Mandatory",
       });
     }
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        message: "Email already exists",
+      });
+    }
+
     const newUser = new User({
       username,
       email,
       password,
     });
     await newUser.save();
+    const token = newUser.generateAuthToken();
+
     res.status(200).json({
       success: true,
       message: "User created successfully",
       data: newUser,
+      token,
     });
   } catch (error) {
     console.log(error);
@@ -51,11 +62,13 @@ const loginUser = async (req, res) => {
         message: "Invalid email or password",
       });
     }
+    const token = user.generateAuthToken();
 
     res.status(200).json({
       success: true,
       message: "User logged in successfully",
       data: user,
+      token,
     });
   } catch (error) {
     console.log(error);
