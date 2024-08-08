@@ -55,7 +55,7 @@ const fetchTaskById = async (req, res) => {
   try {
     const userId = req.user.id;
     const taskId = req.params.id;
-    const task = await Task.findById({ _id: taskId, userId });
+    const task = await Task.findOne({ _id: taskId, userId });
     if (!task) {
       return res
         .status(404)
@@ -79,7 +79,7 @@ const updateTask = async (req, res) => {
     const taskId = req.params.id;
     const { title, description, deadline } = req.body;
     const createdAt = Date.now();
-    const updatedTask = await Task.findByIdAndUpdate(
+    const updatedTask = await Task.findOneAndUpdate(
       { _id: taskId, userId },
       { title, description, deadline, createdAt },
       { new: true }
@@ -106,7 +106,7 @@ const deleteTask = async (req, res) => {
   try {
     const userId = req.user.id;
     const taskId = req.params.id;
-    const deletedTask = await Task.findByIdAndDelete({ _id: taskId, userId });
+    const deletedTask = await Task.findOneAndDelete({ _id: taskId, userId });
 
     if (!deletedTask) {
       return res
