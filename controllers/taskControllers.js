@@ -5,7 +5,6 @@ const Task = require("../models/task");
 
 const createTask = async (req, res) => {
   try {
-    console.log(req.body);
     const { title, description, deadline } = req.body;
     const userId = req.user.id;
     if (!title || !description || !deadline) {
