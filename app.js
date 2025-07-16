@@ -6,12 +6,11 @@ const tasksRouter = require("./routes/taskRoutes");
 const usersRouter = require("./routes/userRoutes");
 const errorHandler = require("./middleware/errorHandler");
 const connectToDatabase = require("./config/database");
-const corsMiddleware = require("./middleware/corsHandler");
 
 connectToDatabase();
 
 const app = express();
-app.use(corsMiddleware);
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(tasksRouter);
