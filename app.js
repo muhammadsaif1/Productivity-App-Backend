@@ -11,7 +11,7 @@ const corsMiddleware = require("./middleware/corsHandler");
 connectToDatabase();
 
 const app = express();
-app.use(cors());
+app.use(corsMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(tasksRouter);
